@@ -1,0 +1,31 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+.search{
+    input{
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
+    .ma-2{
+        margin-left: 10px;
+        background-color: #31373d;
+        cursor: pointer;
+        color: #fff;
+        padding: 7px 11px;
+    }
+}
+
+.section-bifm{
+    width: 60%;
+    min-width: 400px;
+    background-color: #dc92e1;
+    text-align: center;
+    padding: 30px;
+}

@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-class SearchController extends BaseController
+class SearchController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function __invoke(Request $request)
     {
-      return response()->json('successfully added');
+        $data = [
+            'name' => 'this is test name',
+            'price' => 'this is test price'
+        ];
+        return response()->json($data);
     }
 }
