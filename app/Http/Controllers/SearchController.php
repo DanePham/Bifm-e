@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Elasticsearch\ClientBuilder;
 
 class SearchController extends Controller
 {
@@ -14,10 +15,30 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $data = [
-            'name' => 'this is test name',
-            'price' => 'this is test price'
+
+        $client = ClientBuilder::create()->build();
+
+        $params = [
+            'index' => 'bifm',
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'name' => $request->q
+                    ]
+                ]
+            ]
         ];
-        return response()->json($data);
+        
+        $response = $client->search($params);
+
+        $arrReturn = [];
+
+        if( isset($response['hits']['hits']) && count($response['hits']['hits']) > 0 ){
+            foreach( $response['hits']['hits'] as $product ){
+                $arrReturn[] = $product['_source'];
+            }
+        }
+
+        return response()->json($arrReturn);
     }
 }

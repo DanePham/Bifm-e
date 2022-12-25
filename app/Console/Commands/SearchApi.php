@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Elastic\Elasticsearch\ClientBuilder;
-
+use Elasticsearch\ClientBuilder;
+use Illuminate\Support\Facades\DB;
 class SearchApi extends Command
 {
     /**
@@ -38,14 +38,31 @@ class SearchApi extends Command
      */
     public function handle()
     {
-        $client = ClientBuilder::create()
-            ->setHosts(['localhost:9200'])
-            ->build();
+        $productInfo = DB::table('product_info')->get()->toArray();
 
-        // Info API
-        $response = $client->info();
+        // dd($productInfo[0]);
 
-        echo $response['version']['number']; // 8.0.0
+        $client = ClientBuilder::create()->build();
+
+        // $product = $productInfo[0];
+
+        foreach( $productInfo as $product ){
+            $params = [
+                'index' => 'bifm',
+                'id'    => 'bifm_id_' . $product->id,
+                'body'  => [
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'description' => $product->description,
+                ]
+            ];
+            
+            $response = $client->index($params);
+            var_dump($response);
+        }
+
+        // dd($response);
+
         return 0;
     }
 }
