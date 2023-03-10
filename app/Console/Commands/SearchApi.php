@@ -38,31 +38,56 @@ class SearchApi extends Command
      */
     public function handle()
     {
-        $productInfo = DB::table('product_info')->get()->toArray();
+        // $productInfo = DB::table('product_info')->get()->toArray();
 
-        // dd($productInfo[0]);
+        // $client = ClientBuilder::create()->build();
 
-        $client = ClientBuilder::create()->build();
-
-        // $product = $productInfo[0];
-
-        foreach( $productInfo as $product ){
-            $params = [
-                'index' => 'bifm',
-                'id'    => 'bifm_id_' . $product->id,
-                'body'  => [
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'description' => $product->description,
-                ]
-            ];
+        // foreach( $productInfo as $product ){
+        //     $params = [
+        //         'index' => 'bifm',
+        //         'id'    => 'bifm_id_' . $product->id,
+        //         'body'  => [
+        //             'name' => $product->name,
+        //             'price' => $product->price,
+        //             'description' => $product->description,
+        //         ]
+        //     ];
             
-            $response = $client->index($params);
-            var_dump($response);
-        }
+        //     $response = $client->index($params);
+        //     var_dump($response);
+        // }
 
         // dd($response);
-
+        $this->search();
         return 0;
+    }
+
+    public function search(){
+        $client = ClientBuilder::create()->build();
+
+        $params = [
+            'index' => 'bifm',
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'name' => 'HP'
+                    ]
+                ]
+            ]
+        ];
+        
+        $response = $client->search($params);
+
+        $arrReturn = [];
+
+        if( isset($response['hits']['hits']) && count($response['hits']['hits']) > 0 ){
+            foreach( $response['hits']['hits'] as $product ){
+                $arrReturn[] = $product['_source'];
+            }
+        }
+
+        $result = response()->json($arrReturn);
+
+        dd($result);
     }
 }

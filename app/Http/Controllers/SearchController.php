@@ -15,7 +15,6 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         $client = ClientBuilder::create()->build();
 
         $params = [
@@ -23,7 +22,7 @@ class SearchController extends Controller
             'body'  => [
                 'query' => [
                     'match' => [
-                        'name' => $request->q
+                        'doc.name' => $request->request->get('q') ?? ''
                     ]
                 ]
             ]
@@ -38,7 +37,7 @@ class SearchController extends Controller
                 $arrReturn[] = $product['_source'];
             }
         }
-
+        dd($arrReturn);
         return response()->json($arrReturn);
     }
 }
