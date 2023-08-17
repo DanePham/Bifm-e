@@ -17,12 +17,28 @@ class SearchController extends Controller
     {
         $client = ClientBuilder::create()->build();
 
+        $mappingSite = [
+            1 => 'chotot',
+            2 => 'shopee',
+            3 => 'lazada',
+            4 => 'tiki'
+        ];
+
         $params = [
             'index' => 'bifm',
             'body'  => [
                 'query' => [
-                    'match' => [
-                        'doc.name' => $request->request->get('q') ?? ''
+                    'bool' => [
+                        'must' => [
+                            'match' => [
+                                'doc.name' => $request->request->get('q') ?? ''
+                            ]
+                        ],
+                        'must_not' => [
+                            'match' => [
+                                'doc.site_id' => 1
+                            ]
+                        ]
                     ]
                 ]
             ]
@@ -34,10 +50,12 @@ class SearchController extends Controller
 
         if( isset($response['hits']['hits']) && count($response['hits']['hits']) > 0 ){
             foreach( $response['hits']['hits'] as $product ){
-                $arrReturn[] = $product['_source'];
+                $product['_source']['doc']['thumb'] = json_decode($product['_source']['doc']['thumb']);
+                $product['_source']['doc']['site_name'] = $mappingSite[$product['_source']['doc']['site_id']];
+                $arrReturn[] = $product['_source']['doc'];
             }
         }
-        dd($arrReturn);
+
         return response()->json($arrReturn);
     }
 }

@@ -10784,7 +10784,16 @@ textarea.form-control-lg {
 .section-bifm {
   width: 60%;
   min-width: 400px;
-  background-color: #dc92e1;
+  background-color: rgb(219, 197, 197);
   text-align: center;
   padding: 30px;
+}
+.section-bifm .result {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-top: 30px;
+}
+.section-bifm .result img {
+  width: 100%;
 }

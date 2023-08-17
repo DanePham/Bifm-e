@@ -6,13 +6,12 @@
             </div>
         </form>
         <div class="result" v-if="results">
-          <ul v-for="i in results" :key="i.order_id">
-            <li>
-              <p>{{i.name}}</p>
-              <p>{{i.price}}</p>
-              <p>{{i.description}}</p>
-            </li>
-          </ul>
+          <div v-for="i in results" :key="i.order_id">
+            <img v-bind:src="i.thumb[0].thumbnail_url" /> 
+            <p>{{i.name}}</p>
+            <p>{{i.price}}</p>
+            <p>{{i.site_name}}</p>
+        </div>
         </div>
     </div>
 </template>
@@ -30,6 +29,7 @@ export default {
     methods: {
         submitForm() {
             axios.get(`http://127.0.0.1:8000/api?q=${this.$refs.q.value}`).then((response) => {
+                // console.log(response.data);
                 this.results = response.data;
             });
         }
