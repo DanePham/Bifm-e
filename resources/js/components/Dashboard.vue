@@ -9,7 +9,7 @@
           <div v-for="i in results" :key="i.order_id">
             <img v-bind:src="i.thumb[0].thumbnail_url" /> 
             <p>{{i.name}}</p>
-            <p>{{i.price}}</p>
+            <p>{{ formatPrice(i.price) }}</p>
             <p>{{i.site_name}}</p>
         </div>
         </div>
@@ -27,6 +27,10 @@ export default {
         }
     },
     methods: {
+        formatPrice(value) {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        },
         submitForm() {
             axios.get(`http://127.0.0.1:8000/api?q=${this.$refs.q.value}`).then((response) => {
                 // console.log(response.data);
