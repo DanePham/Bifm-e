@@ -6,12 +6,14 @@
             </div>
         </form>
         <div class="result" v-if="results">
-          <div v-for="i in results" :key="i.order_id">
-            <img v-bind:src="i.thumb[0].thumbnail_url" /> 
-            <p>{{i.name}}</p>
-            <p>{{ formatPrice(i.price) }}</p>
-            <p>{{i.site_name}}</p>
-        </div>
+            <a v-for="i in results" :key="i.order_id" v-bind:href="i.url" target="_blank">
+                <div>
+                    <img v-bind:src="i.thumb[0].thumbnail_url" /> 
+                    <p>{{i.name}}</p>
+                    <p>{{ formatPrice(i.price) }}</p>
+                    <p>{{i.site_name}}</p>
+                </div>
+            </a>
         </div>
     </div>
 </template>

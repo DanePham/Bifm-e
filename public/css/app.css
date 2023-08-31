@@ -10794,6 +10794,10 @@ textarea.form-control-lg {
   grid-gap: 20px;
   margin-top: 30px;
 }
-.section-bifm .result img {
+.section-bifm .result a {
+  text-decoration: none;
+  color: #000;
+}
+.section-bifm .result a img {
   width: 100%;
 }

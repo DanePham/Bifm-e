@@ -36,7 +36,7 @@ class SearchController extends Controller
                         ],
                         'must_not' => [
                             'match' => [
-                                'doc.site_id' => 1
+                                'doc.site_id' => 3
                             ]
                         ]
                     ]
@@ -50,7 +50,7 @@ class SearchController extends Controller
 
         if( isset($response['hits']['hits']) && count($response['hits']['hits']) > 0 ){
             foreach( $response['hits']['hits'] as $product ){
-                $product['_source']['doc']['thumb'] = json_decode($product['_source']['doc']['thumb']);
+                // $product['_source']['doc']['thumb'] = json_decode($product['_source']['doc']['thumb']);
                 $product['_source']['doc']['site_name'] = $mappingSite[$product['_source']['doc']['site_id']];
                 $arrReturn[] = $product['_source']['doc'];
             }
