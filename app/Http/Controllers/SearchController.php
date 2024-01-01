@@ -31,12 +31,7 @@ class SearchController extends Controller
                     'bool' => [
                         'must' => [
                             'match' => [
-                                'doc.name' => $request->request->get('q') ?? ''
-                            ]
-                        ],
-                        'must_not' => [
-                            'match' => [
-                                'doc.site_id' => 3
+                                'name' => $request->request->get('q') ?? ''
                             ]
                         ]
                     ]
@@ -50,9 +45,8 @@ class SearchController extends Controller
 
         if( isset($response['hits']['hits']) && count($response['hits']['hits']) > 0 ){
             foreach( $response['hits']['hits'] as $product ){
-                // $product['_source']['doc']['thumb'] = json_decode($product['_source']['doc']['thumb']);
-                $product['_source']['doc']['site_name'] = $mappingSite[$product['_source']['doc']['site_id']];
-                $arrReturn[] = $product['_source']['doc'];
+                $product['_source']['site_name'] = $mappingSite[$product['_source']['site_id']];
+                $arrReturn[] = $product['_source'];
             }
         }
 
