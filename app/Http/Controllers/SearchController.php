@@ -46,6 +46,7 @@ class SearchController extends Controller
         if( isset($response['hits']['hits']) && count($response['hits']['hits']) > 0 ){
             foreach( $response['hits']['hits'] as $product ){
                 $product['_source']['site_name'] = $mappingSite[$product['_source']['site_id']];
+                $product['_source']['thumb'] = json_decode($product['_source']['thumb']);
                 $arrReturn[] = $product['_source'];
             }
         }
