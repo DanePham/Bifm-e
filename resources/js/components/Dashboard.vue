@@ -21,7 +21,7 @@
 import axios from 'axios'
 export default {
     setup: () => ({
-        title: 'Hi this is Bifm_e!!!'
+        title: 'Hi this is Bifm ecommerce!!!'
     }),
     data() {
     return {
