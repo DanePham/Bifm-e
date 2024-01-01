@@ -21,7 +21,7 @@
 import axios from 'axios'
 export default {
     setup: () => ({
-        title: 'Hi Bro!!!'
+        title: 'Hi this is Bifm_e!!!'
     }),
     data() {
     return {
@@ -34,7 +34,7 @@ export default {
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         },
         submitForm() {
-            axios.get(`http://127.0.0.1:8000/api?q=${this.$refs.q.value}`).then((response) => {
+            axios.get(`http://139.180.220.57/api?q=${this.$refs.q.value}`).then((response) => {
                 // console.log(response.data);
                 this.results = response.data;
             });
