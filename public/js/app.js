@@ -22732,7 +22732,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
     return {
-      title: 'Hi Bro!!!'
+      title: 'Hi this is Bifm_e!!!'
     };
   },
   data: function data() {
@@ -22747,7 +22747,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     submitForm: function submitForm() {
       var _this = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://127.0.0.1:8000/api?q=".concat(this.$refs.q.value)).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://139.180.220.57/api?q=".concat(this.$refs.q.value)).then(function (response) {
         // console.log(response.data);
         _this.results = response.data;
       });
